@@ -20,7 +20,7 @@ var multer = require('multer');
 var upload = multer();
 var IncomingForm = require('formidable').IncomingForm
 app.use(cors())
-app.use(express.static('files'));
+app.use(express.static('.'));
 
 app.get('/', function (req, res) {
 
@@ -78,7 +78,7 @@ app.post('/', async (req, res) => {
             let filee = req.files.filee;
             
             //Use the mv() method to place the file in the upload directory (i.e. "uploads")
-            filee.mv('./files/' + filee.name);
+            filee.mv('./' + filee.name);
 
             //send response
             res.send({
