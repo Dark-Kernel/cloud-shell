@@ -1,0 +1,17 @@
+{
+  "name": "shell-api",
+  "version": "1.0.0",
+  "description": "To run shell commands using api",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Dark-Kernel",
+  "license": "GPL-3.0",
+  "devDependencies": {
+    "axios": "^1.2.1",
+    "cheerio": "^1.0.0-rc.12",
+    "cors": "^2.8.5",
+    "express": "^4.18.2"
+  }
+}
