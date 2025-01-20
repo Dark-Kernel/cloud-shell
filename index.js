@@ -64,8 +64,21 @@ app.get('/rev', function (req, res){
 
 app.get('/list', function (req, res){
 	exec('ls files', (err, out)=>{
-	  res.send(`\nout:\n\n${out} \n\nerr:\n\n${err}`)
+        if(err){
+            res.send(err)
+        }
+	  // res.send(`\nout:\n\n${out} \n\nerr:\n\n${err}`)
+    res.send(out)
 	})
+})
+
+app.get('/list-submissions', function(req, res){
+    exec('ls submission', (err, out)=>{
+        if(err){
+            res.send(err)
+        }
+        res.send(out) 
+    })
 })
 
 app.get('/submission', function (req, res){
