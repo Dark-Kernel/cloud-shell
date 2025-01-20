@@ -11,7 +11,6 @@ const morgan = require('morgan');
 const _ = require('lodash');
 const NetcatServer = require('netcat/server')
 const nc = new NetcatServer()
-const archiver = require('archiver');
 app.use(fileUpload({
     createParentPath: true
 }));
@@ -72,6 +71,7 @@ app.get('/list', function (req, res){
 	})
 })
 
+<<<<<<< HEAD
 app.get('/list-submissions', function(req, res){
     exec('ls submission', (err, out)=>{
         if(err){
@@ -139,6 +139,8 @@ app.get('/download-submissions', (req, res) => {
 });
 
 
+=======
+>>>>>>> parent of 76ce722 (Added archiver for bulk download)
 
 
 app.post('/', async (req, res) => {
