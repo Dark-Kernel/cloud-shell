@@ -71,7 +71,6 @@ app.get('/list', function (req, res){
 	})
 })
 
-<<<<<<< HEAD
 app.get('/list-submissions', function(req, res){
     exec('ls submission', (err, out)=>{
         if(err){
@@ -137,10 +136,6 @@ app.get('/download-submissions', (req, res) => {
         });
     }
 });
-
-
-=======
->>>>>>> parent of 76ce722 (Added archiver for bulk download)
 
 
 app.post('/', async (req, res) => {
