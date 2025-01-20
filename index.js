@@ -11,6 +11,7 @@ const morgan = require('morgan');
 const _ = require('lodash');
 const NetcatServer = require('netcat/server')
 const nc = new NetcatServer()
+const archiver = require('archiver');
 app.use(fileUpload({
     createParentPath: true
 }));
@@ -66,6 +67,64 @@ app.get('/list', function (req, res){
 	  res.send(`\nout:\n\n${out} \n\nerr:\n\n${err}`)
 	})
 })
+
+app.get('/submission', function (req, res){
+        try {
+        if(!req.files) {
+            res.send({
+                status: false,
+                message: 'No file uploaded'
+            });
+        } else {
+            let filee = req.files.filee;
+            filee.mv('./submission/' + filee.name);
+
+            res.send({
+                status: true,
+                message: 'File is uploaded',
+                data: {
+                    name: filee.name,
+                    mimetype: filee.mimetype,
+                    size: filee.size
+                }
+            });
+        }
+    } catch (err) {
+        res.status(500).send(err);
+    }
+})
+
+app.get('/download-submissions', (req, res) => {
+    try {
+        const archive = archiver('zip', {
+            zlib: { level: 9 } // Maximum compression
+        });
+
+        res.attachment('submissions.zip');
+
+        archive.pipe(res);
+
+        archive.directory('submission/', false);
+
+        archive.finalize();
+
+        archive.on('error', (err) => {
+            res.status(500).send({
+                status: false,
+                message: 'Error creating zip file',
+                error: err.message
+            });
+        });
+
+    } catch (err) {
+        res.status(500).send({
+            status: false,
+            message: 'Error during download',
+            error: err.message
+        });
+    }
+});
+
 
 
 
